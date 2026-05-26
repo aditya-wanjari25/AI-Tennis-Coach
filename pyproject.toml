@@ -4,4 +4,94 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "anthropic>=0.40.0",
+    "langchain>=0.3.0",
+    "langchain-anthropic>=0.3.0",
+    "langgraph>=0.2.0",
+    "loguru>=0.7.0",
+    "mediapipe>=0.10.14",
+    "numpy>=1.26,<2.0",
+    "opencv-python>=4.10.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "python-dotenv>=1.0",
+    "scipy>=1.13.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29",
+    "mypy>=1.11",
+    "pre-commit>=3.8",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6.0",
+]
+
+# ─────────────────────────────────────────────────
+# Build system — tells uv/pip how to install the package
+# ─────────────────────────────────────────────────
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tennis_coach"]
+
+# ─────────────────────────────────────────────────
+# Ruff — linter + formatter
+# ─────────────────────────────────────────────────
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort (import sorting)
+    "B",    # flake8-bugbear (likely bugs)
+    "C4",   # flake8-comprehensions
+    "UP",   # pyupgrade (modern Python idioms)
+    "N",    # pep8-naming
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+]
+ignore = [
+    "E501",  # line too long — formatter handles this
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ─────────────────────────────────────────────────
+# Pytest — test runner config
+# ─────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = [
+    "-ra",                    # show short summary for all non-passing
+    "--strict-markers",       # error on unknown @pytest.mark
+    "--strict-config",        # error on unknown config keys
+    "--cov=tennis_coach",     # measure coverage of our package
+    "--cov-report=term-missing",  # show uncovered lines in terminal
+]
+
+# ─────────────────────────────────────────────────
+# Mypy — static type checker
+# ─────────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+files = ["src/tennis_coach"]
+
+# Third-party libs without type stubs — don't complain about them
+[[tool.mypy.overrides]]
+module = ["mediapipe.*", "cv2.*", "scipy.*"]
+ignore_missing_imports = true
