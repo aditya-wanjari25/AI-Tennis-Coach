@@ -1,0 +1,58 @@
+# ─── Python ───────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+build/
+dist/
+
+# ─── uv / Virtual environments ────────────────────
+.venv/
+venv/
+env/
+.python-version    
+
+# ─── Environment & secrets ────────────────────────
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# ─── IDE / Editor ─────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store        
+
+# ─── Testing & coverage ───────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# ─── Project-specific: large media ────────────────
+data/
+outputs/
+notebooks/*.ipynb_checkpoints/
+*.mp4
+*.mov
+*.avi
+*.npy            # pose keypoint arrays can be large
+
+# ─── Allow committed reference data ───────────────
+!references/**
+
+# ─── Logs ─────────────────────────────────────────
+*.log
+logs/
+
+# ─── Ruff / mypy cache ────────────────────────────
+.ruff_cache/
+.mypy_cache/
