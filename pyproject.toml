@@ -77,10 +77,24 @@ pythonpath = ["src"]
 addopts = [
     "-ra",                    # show short summary for all non-passing
     "--strict-markers",       # error on unknown @pytest.mark
-    "--strict-config",        # error on unknown config keys
-    "--cov=tennis_coach",     # measure coverage of our package
-    "--cov-report=term-missing",  # show uncovered lines in terminal
+    "--strict-config"        # error on unknown config keys
 ]
+# ─────────────────────────────────────────────────
+# Coverage — separate config from pytest invocation
+# ─────────────────────────────────────────────────
+[tool.coverage.run]
+source = ["src/tennis_coach"]
+branch = true   # also measure if/else branch coverage, not just lines
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+show_missing = true
+skip_covered = false
+
 
 # ─────────────────────────────────────────────────
 # Mypy — static type checker
