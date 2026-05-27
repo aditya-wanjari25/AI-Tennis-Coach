@@ -38,6 +38,10 @@ class Settings(BaseSettings):
     )
 
     # Vision pipeline
+    pose_model_path: Path = Field(
+        default=Path("./models/pose_landmarker_full.task"),
+        description="Path to MediaPipe pose landmarker .task file.",
+    )
     pose_min_detection_confidence: float = Field(
         default=0.5,
         ge=0.0,

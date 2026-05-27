@@ -56,3 +56,5 @@ logs/
 # ─── Ruff / mypy cache ────────────────────────────
 .ruff_cache/
 .mypy_cache/
+
+models/
