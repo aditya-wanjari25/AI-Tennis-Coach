@@ -12,6 +12,8 @@ from pathlib import Path
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from tennis_coach.analysis.types import CameraAngle, Handedness
+
 
 class Settings(BaseSettings):
     """Typed, validated application settings.
@@ -53,6 +55,15 @@ class Settings(BaseSettings):
         ge=0.0,
         le=1.0,
         description="MediaPipe pose tracking threshold.",
+    )
+    # Player/camera context (manual config)
+    camera_angle: CameraAngle = Field(
+        default=CameraAngle.UNKNOWN,
+        description="Camera angle relative to the player.",
+    )
+    handedness: Handedness = Field(
+        default=Handedness.UNKNOWN,
+        description="Player's dominant hand for groundstrokes.",
     )
 
     # Paths
